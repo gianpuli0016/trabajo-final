@@ -14,7 +14,10 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'QVpwDg3Ixc0k4eB0ORjxQdUKCc2fhNaS',
+            'cookieValidationKey' => 'bmZhI26jJdpLpTlUlWU49fatxKQWy8VQ',
+            'parsers' => [
+                'application/json' =>  'yii\web\JsonParser'
+            ],
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -43,6 +46,47 @@ $config = [
             ],
         ],
         'db' => $db,
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                  [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'apiv1/user',
+                    'pluralize'=>false,
+                  ],
+                  [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'apiv1/profesor',
+                    'pluralize'=>false,
+                  ],
+                  [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'apiv1/carrera',
+                    'pluralize'=>false,
+                  ],
+                  [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'apiv1/materia',
+                    'pluralize'=>false,
+                  ],
+                  [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'apiv1/horariomateria',
+                    'pluralize'=>false,
+                  ],
+                  [
+                      'class' => 'yii\rest\UrlRule',
+                      'controller' => 'apiv1/aula',
+                      'pluralize'=>false,
+                  ],
+                  [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'apiv1/reservaaula',
+                    'pluralize'=>false,
+                  ],
+            ],
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -51,6 +95,11 @@ $config = [
             ],
         ],
         */
+    ],
+    'modules' => [
+        'apiv1' => [
+            'class' => 'app\modules\apiv1\Apiv1Module',
+        ],
     ],
     'params' => $params,
 ];
@@ -69,6 +118,7 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => [ ($_ENV['PRODUCCION'] ? '127.O.0.1' : '*')],
     ];
 }
 
