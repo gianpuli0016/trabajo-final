@@ -14,14 +14,14 @@ class m231214_215650_seed_materia_table extends Migration
     {
         $materiaData = [];
 
-        // Obtén el ID de cada carrera
+        // Obtener el ID de cada carrera
         $idCarreraDesarrolloWeb = $this->getIdCarrera('Tecnicatura Desarrollo Web');
         $idCarreraInformatica = $this->getIdCarrera('Ingeniería en Informática');
         $idCarreraMatematicas = $this->getIdCarrera('Licenciatura en Matemáticas');
         $idCarreraContable = $this->getIdCarrera('Analista Contable');
         $idCarreraIngles = $this->getIdCarrera('Profesorado de Ingles');
 
-        // Obtén el ID de cada profesor
+        // Obtener el ID de cada profesor
         $idProfesorJuanPerez = $this->getIdProfesor('Juan', 'Pérez');
         $idProfesorMariaGomez = $this->getIdProfesor('María', 'Gómez');
         $idProfesorPedroLopez = $this->getIdProfesor('Pedro', 'López');
