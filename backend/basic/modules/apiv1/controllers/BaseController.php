@@ -14,7 +14,7 @@ class BaseController extends ActiveController
 {
     public static function allowedDomains()
     {
-        return [$_SERVER["REMOTE_ADDR"], 'http://127.0.0.1:8080'];
+        return ['http://localhost:8080'];
     }
 
     function behaviors()
@@ -34,5 +34,18 @@ class BaseController extends ActiveController
                 ],
             ],
         ]);
+    }
+
+    //agregar dataFilter clave configurada para usar ActiveDataFilter que procesa la consulta de filtro en el modelo buscado
+    public function actions()
+    {
+        $actions = parent::actions();
+
+        $actions['index']['dataFilter'] = [
+            'class' => \yii\data\ActiveDataFilter::class,
+            'searchModel' => $this->modelClass,
+        ];
+
+        return $actions;
     }
 }
