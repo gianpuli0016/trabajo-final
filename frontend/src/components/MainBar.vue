@@ -12,7 +12,7 @@
         />
       </v-list-item>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-app-bar-title class="ml-2">Aulas Curza</v-app-bar-title>
+      <v-app-bar-title class="ml-2">Gestión Curza</v-app-bar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>mdi-bell-outline</v-icon>

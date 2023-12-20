@@ -27,6 +27,16 @@
         required
         >
         </v-select>
+
+        <v-text-field
+        v-model="registro.anio"
+        label="Año"
+        ></v-text-field>
+
+        <v-text-field
+        v-model="registro.periodo"
+        label="Periodo"
+        ></v-text-field>
         
         <BotoneraAbm
             @save="save()"
@@ -47,7 +57,9 @@ export default {
                 id: null,
                 nombre: '',
                 id_carrera: null,
-                id_profesor: ''
+                id_profesor: '',
+                anio:'',
+                periodo: '',
             },
             carreras: [],
             profesores: [],
@@ -63,7 +75,9 @@ export default {
             const data = {
                 'nombre': this.registro.nombre,
                 'id_carrera': this.registro.id_carrera,
-                'id_profesor': this.registro.id_profesor
+                'id_profesor': this.registro.id_profesor,
+                'anio': this.registro.anio,
+                'periodo': this.registro.periodo,
             } 
             console.log(data)
             var that = this;
@@ -72,10 +86,12 @@ export default {
                     // handle success
                     console.log(response);
                     alert('Registro Guardado!!')
-                    that.registro.id = response.data.id
+                    that.registro.id = null
                     that.registro.nombre = ''
                     that.registro.id_carrera = ''
                     that.registro.id_profesor = ''
+                    that.registro.anio = ''
+                    that.registro.periodo = ''
                 }
                 ) 
                   .catch(function (error) {
@@ -92,7 +108,9 @@ export default {
                 id: null,
                 nombre: '',
                 id_carrera: null,
-                id_profesor: ''
+                id_profesor: '',
+                anio: '',
+                periodo: '',
             };
         },
         cargarCarreras() {

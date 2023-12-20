@@ -12,6 +12,8 @@ use Yii;
  * @property int|null $cant_alumnos
  * @property int $id_carrera
  * @property int $id_profesor
+ * @property int|null $anio
+ * @property string|null $periodo
  *
  * @property Carrera $carrera
  * @property HorarioMateria[] $horarioMaterias
@@ -34,9 +36,10 @@ class Materia extends \yii\db\ActiveRecord
     {
         return [
             [['nombre', 'id_carrera', 'id_profesor'], 'required'],
-            [['cant_alumnos', 'id_carrera', 'id_profesor'], 'default', 'value' => null],
-            [['cant_alumnos', 'id_carrera', 'id_profesor'], 'integer'],
+            [['cant_alumnos', 'id_carrera', 'id_profesor', 'anio'], 'default', 'value' => null],
+            [['cant_alumnos', 'id_carrera', 'id_profesor', 'anio'], 'integer'],
             [['nombre'], 'string', 'max' => 128],
+            [['periodo'], 'string', 'max' => 50],
             [['id_carrera'], 'exist', 'skipOnError' => true, 'targetClass' => Carrera::class, 'targetAttribute' => ['id_carrera' => 'id']],
             [['id_profesor'], 'exist', 'skipOnError' => true, 'targetClass' => Profesor::class, 'targetAttribute' => ['id_profesor' => 'id']],
         ];
@@ -53,6 +56,8 @@ class Materia extends \yii\db\ActiveRecord
             'cant_alumnos' => 'Cant Alumnos',
             'id_carrera' => 'Id Carrera',
             'id_profesor' => 'Id Profesor',
+            'anio' => 'Anio',
+            'periodo' => 'Periodo',
         ];
     }
 

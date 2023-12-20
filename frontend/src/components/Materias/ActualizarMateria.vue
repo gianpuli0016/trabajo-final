@@ -15,11 +15,30 @@
       ></v-select>
   
       <v-select
-        v-model="registro.id_profesor"
-        :items="profesores"
-        label="Profesor"
-        item-title="nombre"
-        item-value="id"
+      v-model="registro.id_profesor"
+      :items="profesoresConNombreCompleto"
+      label="Profesor"
+      item-title="nombreCompleto" 
+      item-value="id"
+      required
+      >
+      </v-select>
+
+      <v-select
+        v-model="registro.anio"
+        :items="anios"
+        label="Año"
+        item-title="value"
+        item-value="value"
+        required
+      ></v-select>
+
+      <v-select
+        v-model="registro.periodo"
+        :items="periodos"
+        label="Periodo"
+        item-title="value"
+        item-value="value"
         required
       ></v-select>
   
@@ -31,7 +50,7 @@
   import BotoneraAbm from "../BotoneraAbm.vue";
   
   export default {
-    name: "ActualizarMateria",
+    name: "BotoneraAbm",
     components: { BotoneraAbm },
     data() {
       return {
@@ -40,10 +59,15 @@
           nombre: "",
           id_carrera: null,
           id_profesor: "",
+          anio: null,
+          periodo: '',
         },
         carreras: [],
         profesores: [],
+        profesoresConNombreCompleto: [],
         cargando: false,
+        anios: [1, 2, 3, 4, 5],
+        periodos: [ "1er Cuatrimestre", "2do Cuatrimetre"]
       };
     },
     methods: {
@@ -52,6 +76,8 @@
           nombre: this.registro.nombre,
           id_carrera: this.registro.id_carrera,
           id_profesor: this.registro.id_profesor,
+          anio: this.registro.anio,
+          periodo: this.registro.periodo
         };
         console.log(data);
         var that = this;
@@ -98,15 +124,50 @@
           });
       },
       cargarProfesores() {
-        var that = this;
-        this.axios
-          .get("/apiv1/profesor")
-          .then(function (response) {
-            that.profesores = response.data;
-          })
+          var that = this;
+          this.axios
+              .get("/apiv1/profesor")
+              .then(function (response) {
+                  that.profesores = response.data;
+                  that.profesoresConNombreCompleto = that.profesores.map(function (profesor) {
+                      return {
+                          id: profesor.id,
+                          nombreCompleto: profesor.apellido + ", " + profesor.nombre,
+                          mostrar: profesor.mostrar
+                      };
+                  });
+              })
+              .catch(function (error) {
+                  console.error("Error al cargar profesores", error);
+              });
+      },
+      remove(){
+          var that = this;
+          this.axios.delete('/apiv1/materia/'+ this.registro.id)
+          .then(function(response){
+              //hadle success
+              console.log(response);
+              alert('Registro Eliminado!!')
+          }) 
           .catch(function (error) {
-            console.error("Error al cargar profesores", error);
+            // handle error
+            console.log(error);
+            })
+          .then(function () {
+            // always executed
+            that.cargando = false;
+            that.resetForm();
           });
+      },
+      resetForm() {
+          this.registro = {
+            id: null,
+            nombre: "",
+            id_carrera: null,
+            id_profesor: "",
+            anio: null,
+            periodo: '',
+          };
       },
     },
     mounted() {

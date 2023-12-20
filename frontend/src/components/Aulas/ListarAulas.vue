@@ -38,7 +38,7 @@
             <td>{{ item.cant_pcs }}</td>
             <td>{{ item.cant_proyector }}</td>
             <td>{{ item.aforo }}</td>
-            <td>{{ item.es_climatizada }}</td>
+            <td>{{ item.es_climatizada ? 'Sí' : 'No' }}</td>
  
         </tr>
         </tbody>
