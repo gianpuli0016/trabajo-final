@@ -12,6 +12,7 @@
           <th class="text-left">Periodo</th>
           <th class="text-left">Correlativas</th>
           <th class="text-left">Acciones</th>
+          <th class="text-left">Horarios</th>
         </tr>
       </thead>
       <tbody>
@@ -28,19 +29,25 @@
             <td>
               <v-btn @click="actualizarMateria(materia.id)" color="primary">Editar</v-btn>
             </td>
+            <td>
+              <v-btn @click="verHorarios(materia)" color="primary">Ver Horarios</v-btn>
+            </td>
           </tr>
           <!-- Añade línea divisoria -->
-          <td v-if="deberiaMostrarLinea(index)" colspan="7" class="linea"></td>
+          <td v-if="deberiaMostrarLinea(index)" colspan="8" class="linea"></td>
         </template>
       </tbody>
     </v-table>
     <v-btn @click="agregarMateria(this.tuCarreraId)" color="primary">Agregar Materia</v-btn>
+
   </div>
 </template>
 
 <script>
+
 export default {
   name: "PlanDeEstudio",
+  components: {},
   data: () => ({
     tuCarreraId: null,
     materias: [],
@@ -94,6 +101,12 @@ export default {
         index < this.materiasOrdenadas.length - 1 &&
         this.materiasOrdenadas[index].anio !== this.materiasOrdenadas[index + 1].anio
       );
+    },
+    verHorarios(materia) {
+      // Obtener el ID de la materia
+      const materiaId = materia.id;
+      // Navegar al componente VerHorariosMateria con el ID de la materia
+      this.$router.push({ name: "ListarHorarios", params: { materiaId } });
     },
   },
 };

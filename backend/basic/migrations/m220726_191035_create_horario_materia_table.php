@@ -16,8 +16,6 @@ class m220726_191035_create_horario_materia_table extends Migration
             'id' => $this->primaryKey(),
             'id_materia' => $this->integer()->notNull(),
             'id_reserva' => $this->integer()->Null(),
-            'fh_desde' => $this->timestamp(),
-            'fh_desde' => $this->timestamp()
         ]);
 
         $this->addForeignKey('fk-horario_materia-id_materia', 'horario_materia', 'id_materia', 'materia', 'id', 'CASCADE');

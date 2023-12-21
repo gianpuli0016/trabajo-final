@@ -1,56 +1,61 @@
 <template>
     <div>
         <h1>Materias</h1>
-
+        <v-btn @click="redireccionarAPlanDeEstudio" color="primary" class="mr-4">
+            PLAN DE ESTUDIO
+        </v-btn>
         <v-text-field
-        v-model="registro.nombre"
-        label="Nombre"
-        required
+            v-model="registro.nombre"
+            label="Nombre"
+            required
         ></v-text-field>
-
         <v-select
-        v-model="registro.id_carrera"
-        :items="carreras"
-        label="Carrera"
-        item-title="nombre"
-        item-value="id"
-        required
-        >
-        </v-select>
-
+            v-model="registro.id_carrera"
+            :items="carreras"
+            label="Carrera"
+            item-title="nombre"
+            item-value="id"
+            required
+        ></v-select>
         <v-select
-        v-model="registro.id_profesor"
-        :items="profesoresConNombreCompleto"
-        label="Profesor"
-        item-title="nombreCompleto" 
-        item-value="id"
-        required
-        >
-        </v-select>
-
-        <v-text-field
-        v-model="registro.anio"
-        label="Año"
-        ></v-text-field>
-
-        <v-text-field
-        v-model="registro.periodo"
-        label="Periodo"
-        ></v-text-field>
+            v-model="registro.id_profesor"
+            :items="profesoresConNombreCompleto"
+            label="Profesor"
+            item-title="nombreCompleto" 
+            item-value="id"
+            required
+        ></v-select>
+        <v-select
+            v-model="registro.anio"
+            :items="anios"
+            label="Año"
+            item-title="value" 
+            item-value="value"
+            required
+        ></v-select>
+        <v-select
+            v-model="registro.periodo"
+            :items="periodos"
+            label="Periodo"
+            item-title="value" 
+            item-value="value"
+            required
+        ></v-select>
         
-        <BotoneraAbm
-            @save="save()"
-        >
-        </BotoneraAbm>
+        <v-btn @click="save()" elevation="2">
+            <v-icon dark>
+            mdi-content-save
+            </v-icon>
+        </v-btn>    
     </div>
 </template>
 
 <script>
-import BotoneraAbm from "../BotoneraAbm.vue";
+
 
 export default {
     name: "CrearMateria",
-    components: { BotoneraAbm },
+    components: {  },
     data(){ 
         return {
             registro: {
@@ -61,6 +66,8 @@ export default {
                 anio:'',
                 periodo: '',
             },
+            anios: [1, 2, 3, 4, 5],
+            periodos: ["1er Cuatrimestre", "2do Cuatrimestre"],
             carreras: [],
             profesores: [],
             profesoresConNombreCompleto: [],
@@ -148,6 +155,9 @@ export default {
                     console.error("Error al cargar profesores", error);
                 });
         },
+        redireccionarAPlanDeEstudio(){
+            this.$router.push({name: "PlanDeEstudio", params: { idCarrera: this.$route.params.idCarrera }})
+        }
     },
     watch: {
         carreras: function(newCarreras) {

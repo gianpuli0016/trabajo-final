@@ -10,8 +10,6 @@ use Yii;
  * @property int $id
  * @property int $id_materia
  * @property int|null $id_reserva
- * @property string|null $fh_desde
- * @property string|null $fh_hasta
  *
  * @property Materia $materia
  * @property ReservaAula $reserva
@@ -35,7 +33,6 @@ class HorarioMateria extends \yii\db\ActiveRecord
             [['id_materia'], 'required'],
             [['id_materia', 'id_reserva'], 'default', 'value' => null],
             [['id_materia', 'id_reserva'], 'integer'],
-            [['fh_desde', 'fh_hasta'], 'safe'],
             [['id_materia'], 'exist', 'skipOnError' => true, 'targetClass' => Materia::class, 'targetAttribute' => ['id_materia' => 'id']],
             [['id_reserva'], 'exist', 'skipOnError' => true, 'targetClass' => ReservaAula::class, 'targetAttribute' => ['id_reserva' => 'id']],
         ];
@@ -50,8 +47,6 @@ class HorarioMateria extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_materia' => 'Id Materia',
             'id_reserva' => 'Id Reserva',
-            'fh_desde' => 'Fh Desde',
-            'fh_hasta' => 'Fh Hasta',
         ];
     }
 

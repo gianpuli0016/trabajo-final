@@ -38,7 +38,7 @@
 import BotoneraAbm from "../BotoneraAbm.vue";
 
 export default {
-    name: "AbmAulas",
+    name: "EditarAulas",
     components: { BotoneraAbm },
     data: () => ({
         registro: {

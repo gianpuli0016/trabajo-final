@@ -10,8 +10,9 @@ use Yii;
  * @property int $id
  * @property int $id_aula
  * @property string|null $fh_desde
- * @property string $observacion
  * @property string|null $fh_hasta
+ * @property string $dia
+ * @property string $observacion
  *
  * @property Aula $aula
  * @property HorarioMateria[] $horarioMaterias
@@ -32,10 +33,11 @@ class ReservaAula extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_aula', 'observacion'], 'required'],
+            [['id_aula', 'dia', 'observacion'], 'required'],
             [['id_aula'], 'default', 'value' => null],
             [['id_aula'], 'integer'],
             [['fh_desde', 'fh_hasta'], 'safe'],
+            [['dia'], 'string', 'max' => 20],
             [['observacion'], 'string', 'max' => 256],
             [['id_aula'], 'exist', 'skipOnError' => true, 'targetClass' => Aula::class, 'targetAttribute' => ['id_aula' => 'id']],
         ];
@@ -50,8 +52,9 @@ class ReservaAula extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_aula' => 'Id Aula',
             'fh_desde' => 'Fh Desde',
-            'observacion' => 'Observacion',
             'fh_hasta' => 'Fh Hasta',
+            'dia' => 'Dia',
+            'observacion' => 'Observacion',
         ];
     }
 
